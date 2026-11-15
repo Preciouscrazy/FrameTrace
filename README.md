@@ -77,7 +77,7 @@ Non-finite values and metrics that cannot be represented as finite JSON numbers 
 
 The Python unit suite exercises CSV headers, ordering, malformed rows, missing samples, non-finite values, percentile boundaries, 1% low sample selection, stutter event grouping, and the exact committed JSON fixture. CLI tests exercise file aliases, hard links, rejected inputs, replacing existing reports safely, and process exit status.
 
-GitHub Actions tests **Python 3.10, 3.11 and 3.12 on Ubuntu and Windows**. See the [validation record](evidence/validation.md) for the specific verified workflow status and run links.
+**GitHub Actions verified:** Python **3.10, 3.11 and 3.12** on **Ubuntu and Windows** all passed ([successful PR run](https://github.com/Preciouscrazy/FrameTrace/actions/runs/43692731951)). See the [validation record](evidence/validation.md) for the exact tested commit, all six matrix combinations, and reproduction instructions.
 
 ## Boundaries
 
