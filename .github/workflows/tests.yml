@@ -1,22 +1,26 @@
 name: Python tests
+
 on:
   push:
   pull_request:
+
 jobs:
   tests:
-    runs-on: ubuntu-24.04
+    name: "${{ matrix.os }} / Python ${{ matrix.python-version }}"
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
+        os: [ubuntu-24.04, windows-latest]
         python-version: ['3.10', '3.11', '3.12']
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: python -m unittest discover -s tests -v
-      - name: Install package
+      - name: Install in editable mode
         run: python -m pip install -e .
-      - name: Validate sample report
-        run: |
-          python -m frametrace --input examples/frames.csv --output frame-report.json --stutter-ms 33.3
-          python -m json.tool frame-report.json > /dev/null
+      - name: Run unit and CLI regressions
+        run: python -m unittest discover -s tests -v
+      - name: Check sample JSON against fixture
+        run: python -m unittest tests/test_core.py -v
